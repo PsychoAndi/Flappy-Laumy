@@ -7,7 +7,7 @@ A Pico-8 game for two players, very simple and funny
 There are two players, one on the left side, one on the right side. Both are able to
 jump, and when they are flying, gravity brings them back to the floor. While they are
 flying, they have to throw a heart to each other and catch the heart. The obstacle is 
-the flying cow, that neutralize the heart. From time to time there is a bird flying,
+the flying cow, that neutralizes the heart. From time to time there is a bird flying,
 when a player chrashes into it, score is set to zero! 
 
 Very nice for a party with dance mats :D
