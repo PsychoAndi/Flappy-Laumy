@@ -6,15 +6,15 @@ __lua__
 --09.04.2023
 
 function _init()
- --framecounter, blinktimer
+--framecounter, blinktimer
 	t=0
 	blinkt=1
  
- --cartridge data highscore
+--cartridge data highscore
 	cartdata("lofl")
- --dset(1,0) --reset hiscore
+ 	--dset(1,0) --reset hiscore
  
- --general init
+--general init
 	setup()
 end
 
@@ -26,22 +26,22 @@ function _update()
 --for blinking text/squares
 	blinkt+=1
 	
- --begin game or after gameover
+--begin game or after gameover
 	if game_stat=="begin" then
 		upd_title()
 		upd_bird()
 	end
 	
- --run-loop
+--run-loop
 	if game_stat=="play" then
-	 --timer 1 per second
+	--timer 1 per second
 		upd_timer()
 		
-	 --gamepad check
+	--gamepad check
 		check_buttons()
 		
-	 --frame updates
-	 upd_clouds()
+	--frame updates
+	 	upd_clouds()
 		upd_player()
 		upd_heart()
 		upd_cow()
@@ -55,15 +55,15 @@ function _update()
 	if game_stat=="over" or 
 	   game_stat=="high" then
 		upd_clouds()
-	 upd_bird()
+		upd_bird()
 		upd_over()
 	end
 end
 
 function _draw()
- --draw frame	
+--draw frame	
 	if game_stat=="begin" then
-	 cls(1)
+		cls(1)
 	 
 		draw_title()
 		draw_bird()
@@ -183,9 +183,9 @@ function upd_worm()
 	 	if worm.x<128 then
 	  	worm.x+=1*worm.spd
 	 	else
-				worm.dir=-1
-				worm.x=128
-				worm.mov=false
+			worm.dir=-1
+			worm.x=128
+			worm.mov=false
 	 	end
 		end
 		if worm.mov and
@@ -211,9 +211,9 @@ function upd_heart()
  	if hrz.x<128 then
   	hrz.x+=1*hrz.spd
  	else
-			hrz.dir=0
-			hrz.x=0
-			change_sun()
+		hrz.dir=0
+		hrz.x=0
+		change_sun()
  	end
 	end
 	if hrz.dir==-1 then
@@ -269,11 +269,11 @@ function check_col()
 --calculate new bird pos
  if col(ram,bird) or 
  	  col(lau,bird) then
- 	hit(bird.x,bird.y)
- 	bird.x=rnd(blr)
- 	bird.y=bird_miny+
-	        flr(rnd(bird_maxy))
-	 bird.fly=false
+ 		hit(bird.x,bird.y)
+ 		bird.x=rnd(blr)
+ 		bird.y=bird_miny+
+	         flr(rnd(bird_maxy))
+		bird.fly=false
 		sfx(6)
 		score=0
 	end
@@ -285,7 +285,7 @@ function upd_clouds()
 		if clouds[i].x>112 then
 			clouds[i].dir=-1
 		elseif clouds[i].x<0 then
-	 	clouds[i].dir=1
+	 		clouds[i].dir=1
 		end
 	end
 end
@@ -302,12 +302,12 @@ function upd_timer()
 			end
 			--speedup cow at 30 sec
 			if ptim<30 then
-    cow.spd=1.5
-   end
-   --more speedup at 15 sec
-   if ptim<15 then
-    cow.spd=2
-   end
+    		cow.spd=1.5
+   		end
+			--more speedup at 15 sec
+			if ptim<15 then
+				cow.spd=2
+			end
 			if ptim<0 then
 			--music off
 				music(-1)
@@ -317,10 +317,10 @@ function upd_timer()
 					dset(1,score)
 					game_stat="high"	 	 	
 				else
-     sfx(12)
+     			sfx(12)
 					game_stat="over"
 				end
-	 	end
+	 		end
 		end
 	end
 end
@@ -346,11 +346,11 @@ end
 function upd_over()
 	--5 seconds until the 
 	--text "press up" appears
- go_timer()
+ 	go_timer()
  
- if showtxt then
+ 	if showtxt then
 		if btn(4,0) or btn(4,1) then
-	  game_stat="begin"
+	  	game_stat="begin"
 		end
 	end
 end
@@ -377,15 +377,15 @@ function draw_players()
 	    lau.x,lau.y+8)
 	if hrz.dir==0 and 
 	   sun.x==slr[2] then
-	 spr(10,lau.x-4,lau.y+4)
+	 	spr(10,lau.x-4,lau.y+4)
 	end
 end
 
 function draw_heart()
 --draw heart only when its moving
 	if hrz.dir!=0 then
-	 spr(getframe(hrz.ani),
-	     hrz.x,hrz.y)
+	 	spr(getframe(hrz.ani),
+	      hrz.x,hrz.y)
 	end
 end
 
@@ -407,9 +407,9 @@ end
 function draw_timer()
 --show time in cloud
 	local col,xoff
- xoff=0
+ 	xoff=0
  
- if (ptim>=10) col=3
+ 	if (ptim>=10) col=3
 	if ptim<10 then
 	--red text
 		col=8
@@ -482,28 +482,27 @@ end
 function draw_sun()
 --draw the sun
 	if (sun.sl) sun.x=slr[1] else sun.x=slr[2]
-		circfill(sun.x,sun.y,
-	          getframe(sun.ani),10)
+	circfill(sun.x,sun.y,getframe(sun.ani),10)
 end
 
 function draw_sign()
-local of=0
+	local of=0
 
 	if (bird.dir==-1) of=61
 	
 	if showsign then
 		spr(144,24+of,115)
 		spr(145,32+of,115)
-  spr(146,40+of,115)
-  spr(161,32+of,123)
-  rect(23+of,114,41+of,122,blink("r"))
+  	spr(146,40+of,115)
+  	spr(161,32+of,123)
+  	rect(23+of,114,41+of,122,blink("r"))
 	end
 end
 
 function draw_title()
 --titlescreen
- rectfill(0,35,128,95,12)
- rectfill(0,90,128,95,11)
+ 	rectfill(0,35,128,95,12)
+ 	rectfill(0,90,128,95,11)
 
 	local ly=30
 	local lx=17
@@ -645,11 +644,11 @@ end
 function go_timer()
 --
 	if t%30==0 then
-	 go+=1
-	 if go>gotim then
-	  go=0
-	  showtxt=true
-	 end
+	 	go+=1
+	 	if go>gotim then
+	  	go=0
+	  	showtxt=true
+	 	end
 	end	
 end
 
@@ -694,7 +693,7 @@ end
 
 function mov_up(pl)
 --moves player up
- pl.y=pl.y-2*pl.grav
+ 	pl.y=pl.y-2*pl.grav
 	if pl.y<=8 then
 		pl.y=8
 	end
@@ -705,8 +704,8 @@ function shoot_heart(p)
 --is on the screen. checks if the
 --player is between his bounds
 	if hrz.dir==0 and 
-	   p.y<y_bottom and 
-	   p.y>y_top then
+	  p.y<y_bottom and 
+	  p.y>y_top then
   
 		--game starts with first shot
 		if game_started==false then
@@ -791,7 +790,7 @@ function setup()
 	acc=1.1 
  
 --particle effect array
- parts={}
+ 	parts={}
  
 --shooting boundaries
 	y_bottom=95
@@ -799,16 +798,16 @@ function setup()
 
  --player
 	ram={x=10,y=100,
-					 ani_t={1,2,3,4},
-						ani_b={17,18,19,20},
-						grav=grav,cox=6,coy=14,
-						hdir=1,fsfx=0,bot=109}
+			 ani_t={1,2,3,4},
+			 ani_b={17,18,19,20},
+			 grav=grav,cox=6,coy=14,
+			 hdir=1,fsfx=0,bot=109}
 	     
 	lau={x=110,y=100,
-						ani_t={33,34,35,36},
-						ani_b={49,50,51,52},
-						grav=grav,cox=4,coy=14,
-						hdir=-1,fsfx=1,bot=109}
+			 ani_t={33,34,35,36},
+			 ani_b={49,50,51,52},
+			 grav=grav,cox=4,coy=14,
+			 hdir=-1,fsfx=1,bot=109}
  
 --sun
  sun={x=0,y=-2,col=10,
@@ -818,33 +817,33 @@ function setup()
       
 --heart
  	hrz={x=0,y=0,cox=2,coy=2,
-      	ani={10,11},
-      	spd=3,dir=0,hsfx=2}
+       ani={10,11},
+       spd=3,dir=0,hsfx=2}
       
 --cow
  	cow={x=60,y=30,
-							min_y=16,max_y=100,
-							spd=1,dir=1,hits=0,
-							cox=0,coy=14,
-							ani_t={42,41},
-							ani_l={57,56,55},
-							ani_r={59,60,61},
-							ani_b={58,58,58,43,43,43},
-							hsfx=3}
+			 min_y=16,max_y=100,
+			 spd=1,dir=1,hits=0,
+			 cox=0,coy=14,
+			 ani_t={42,41},
+			 ani_l={57,56,55},
+			 ani_r={59,60,61},
+			 ani_b={58,58,58,43,43,43},
+			 hsfx=3}
  	ch_y=2
   
 --bird
  	bird={x=rnd(blr),y=14,
-								spd=0.4,dir=rnd({-1,1}),
-								fly=false,cox=4,coy=14,
-								ani={25,26,27},hsfx=6} 
+				spd=0.4,dir=rnd({-1,1}),
+				fly=false,cox=4,coy=14,
+				ani={25,26,27},hsfx=6} 
  
 --worm
 	worm={x=rnd(wlr),y=119,
-							spd=0.05,dir=rnd({-1,1}),
-							mov=false,
-							ani={23,23,24,24},
-							cf=0} 
+				spd=0.05,dir=rnd({-1,1}),
+				mov=false,
+				ani={23,23,24,24},
+				cf=0} 
  
 --clouds
 	clouds={}
@@ -853,7 +852,7 @@ function setup()
 		spd=0.03*i,sp_l=30,sp_r=31}
 		add(clouds,c)
 		c={x=116-i*16,y=2+i*8,dir=-1,
-			spd=0.03*i,sp_l=30,sp_r=31}
+			 spd=0.03*i,sp_l=30,sp_r=31}
 		add(clouds,c)
 	end
 end
