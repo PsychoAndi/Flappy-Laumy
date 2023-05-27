@@ -132,11 +132,10 @@ function upd_bird()
 	if rnd(200)>199 then
 	--bird not flying yet
 		if not(bird.fly) then
-	 	bird.fly=true
-	 	showsign=true
-	 	--y-pos between min and max
-			bird.y=bird_miny+
-			flr(rnd(bird_maxy))
+			bird.fly=true
+			showsign=true
+			--y-pos between min and max
+			bird.y=bird_miny+flr(rnd(bird_maxy))
 		end
 	end
 	--bird flies 
