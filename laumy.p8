@@ -126,12 +126,13 @@ function upd_cow()
 	cow.y+=cow.dir*cow.spd
 	
 	--5 hits for the cow hitsign 
-	if cow.hits>4 then
+	if cow.hits>cow.hitcnt-1 then
 	 	cow.hitsign=true
 	 	do_ctim()
-	 	if cow.hits>5 then
+	 	if cow.hits>cow.hitcnt then
 	 		cow.hits=0
 	 		score+=1
+			cow.hitsign=false
   		end
 	end
 end
@@ -795,9 +796,7 @@ function setup()
 
 --game start
  	game_started=false
-
  	score=0
-
  	cloud_rows=5
  
 --x-startpos sun,worm
@@ -844,10 +843,10 @@ function setup()
  	     sl=rnd(sl)}
       
 --heart
- hrz={x=0,y=0,
-      ani={10,11},
-      box={x1=1,y1=2,x2=8,y2=8},
-      spd=3,dir=0,hsfx=2}
+ 	hrz={x=0,y=0,
+      	     ani={10,11},
+      	     box={x1=1,y1=2,x2=8,y2=8},
+	     spd=3,dir=0,hsfx=2}
       
 --cow
 	cow={x=60,y=30,
@@ -859,7 +858,8 @@ function setup()
 	     ani_b={58,58,58,43,43,43},
 	     box={x1=2,y1=1,x2=8,y2=15},
 	     hsfx=3,ctim=0,
-	     hitsign=false}
+	     hitsign=false,
+	     hitcnt=5}
 	ch_y=2
   
 --bird
