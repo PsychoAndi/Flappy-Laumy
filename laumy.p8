@@ -128,15 +128,15 @@ function upd_cow()
 	
 	--5 hits for the cow hitsign 
 	if cow.hits>cow.hitcnt-1 then
-	 cow.hitsign=true
-	 do_ctim()
-	 if cow.hits>cow.hitcnt then
-	 	--bonus-hit
-	 	cow.hits=0
-	 	score+=2
-	 	cow.hitsign=false
-	 	sfx(13)
-  end
+	 	cow.hitsign=true
+		do_ctim()
+		if cow.hits>cow.hitcnt then
+			--bonus-hit
+			cow.hits=0
+			score+=2
+			cow.hitsign=false
+			sfx(13)
+		end
 	end
 end
 
@@ -166,8 +166,7 @@ function upd_bird()
 			bird.fly=false
 		end
 	end
-	if bird.fly and
-	 bird.dir==-1 then
+	if bird.fly and bird.dir==-1 then
 		if bird.x>-8 then
 	  		bird.x-=bird.spd
 	  		if bird.x<122 then
@@ -190,8 +189,7 @@ function upd_worm()
 	 	worm.y=119
 	end
 	--worm is active and long
-	if worm.mov and
-	   worm.cf==24 then
+	if worm.mov and worm.cf==24 then
 		if worm.dir==1 then
 	 		if worm.x<128 then
 	  			worm.x+=worm.spd
@@ -257,21 +255,20 @@ function check_col()
 	end
 	if hrz.dir!=0 then
 		if coll(hrz,cow) then
-		 --change direction of cow and
-		 --position of the sun
-		 sfx(cow.hsfx)
-		 hrz.dir=0
-		 hit(cow.x,cow.y)
-		 cow.hits+=1
-	  	cow.dir*=-1
-	  	change_sun()
-	 end
- end
+		 	--change direction of cow and
+		 	--position of the sun
+		 	sfx(cow.hsfx)
+		 	hrz.dir=0
+		 	hit(cow.x,cow.y)
+		 	cow.hits+=1
+	  		cow.dir*=-1
+	  		change_sun()
+	 	end
+ 	end
 	--if player collides with
 	--bird, set score to zero and
 	--calculate new pos
- 	if coll(ram,bird) or 
- 	  coll(lau,bird) then
+ 	if coll(ram,bird) or coll(lau,bird) then
  		hit(bird.x,bird.y)
  		set_bird(bird)
 	 	bird.fly=false
@@ -307,7 +304,7 @@ function upd_timer()
    			end
    			--more speedup at 15 sec
    			if ptim<15 then
-    			cow.spd=2
+    				cow.spd=2
    			end
 			if ptim<0 then
 				music(-1)
@@ -317,7 +314,7 @@ function upd_timer()
 					dset(1,score)
 					game_stat="high"	 	 	
 				else
-    				sfx(12)
+    					sfx(12)
 					game_stat="over"
 				end
 	 		end
@@ -364,6 +361,7 @@ function draw_players()
 	--draw the little heart
 	spr(getframe(ram.ani_t),ram.x,ram.y)
 	spr(getframe(ram.ani_b),ram.x,ram.y+8)
+	
 	if hrz.dir==0 and sun.x==slr[1] then
 		spr(10,ram.x+3,ram.y+4)
 	end
@@ -410,7 +408,7 @@ function draw_timer()
  
  	if (ptim>=10) col=3
 	if ptim<10 then
-	--red text
+		--red text
 		col=8
 		xoff=2
 	end
@@ -477,7 +475,7 @@ end
 function draw_sun()
 	--draw the sun
 	if (sun.sl) sun.x=slr[1] else sun.x=slr[2]
-		circfill(sun.x,sun.y,getframe(sun.ani),10)
+	circfill(sun.x,sun.y,getframe(sun.ani),10)
 end
 
 function draw_sign()
@@ -596,10 +594,10 @@ function coll(a,b)
  	local box_b=abs_box(b)
  
  	if box_a.x1>box_b.x2 or
-    	box_a.y1>box_b.y2 or
-    	box_b.x1>box_a.x2 or
-    	box_b.y1>box_a.y2 then
-    	return false
+    	   box_a.y1>box_b.y2 or
+    	   box_b.x1>box_a.x2 or
+    	   box_b.y1>box_a.y2 then
+    		return false
  	end
  
  	return true  
@@ -621,11 +619,11 @@ function blink(mode)
 	if mode=="r" then
 		--square
 		col_anim={8,8,8,8,9,9,9,9,
-			      10,10,10,10,9,9,9,9}
+			  10,10,10,10,9,9,9,9}
 	elseif mode=="t" then
 		--textcolours
 		col_anim={5,5,6,6,6,6,6,6,
-			  	  7,7,7,7,7,7}
+			  7,7,7,7,7,7}
 	end
 	
 	if blinkt>#col_anim then
@@ -828,55 +826,52 @@ function setup()
 
  	--players
 	ram={x=10,y=100,
-					 ani_t={1,2,3,4},
-						ani_b={17,18,19,20},
-						box={x1=2,y1=3,x2=7,y2=14},
-						grav=grav,
-						hdir=1,fsfx=0,bot=109}	     
+	     ani_t={1,2,3,4},
+	     ani_b={17,18,19,20},
+	     box={x1=2,y1=3,x2=7,y2=14},
+	     grav=grav,hdir=1,fsfx=0,bot=109}	     
 	lau={x=110,y=100,
-						ani_t={33,34,35,36},
-						ani_b={49,50,51,52},
-						box={x1=2,y1=3,x2=7,y2=14},
-						grav=grav,
-						hdir=-1,fsfx=1,bot=109}
+	     ani_t={33,34,35,36},
+	     ani_b={49,50,51,52},
+	     box={x1=2,y1=3,x2=7,y2=14},
+	     grav=grav,hdir=-1,fsfx=1,bot=109}
 						
 	--sun
  	sun={x=0,y=-2,col=10,
-         ani={9,9,10,10,11,11,10,10},
- 					sl=rnd(sl)}
+             ani={9,9,10,10,11,11,10,10},
+ 	     sl=rnd(sl)}
       
 	--heart
  	hrz={x=0,y=0,
-     	 ani={10,11},
-     	 box={x1=1,y1=2,x2=8,y2=8},
-     	 spd=3,dir=0,hsfx=2}
+     	     ani={10,11},
+     	     box={x1=1,y1=2,x2=8,y2=8},
+     	     spd=3,dir=0,hsfx=2}
       
 	--cow
 	cow={x=60,y=30,min_y=16,max_y=100,
-		 spd=1,dir=1,hits=0,
-		 ani_t={42,41},
-		 ani_l={57,56,55},
-		 ani_r={59,60,61},
-		 ani_b={58,58,58,43,43,43},
-		 box={x1=2,y1=1,x2=8,y2=15},
-		 hsfx=3,ctim=0,
-		 hitsign=false,
-		 hitcnt=5}
+	     spd=1,dir=1,hits=0,
+	     ani_t={42,41},
+	     ani_l={57,56,55},
+	     ani_r={59,60,61},
+	     ani_b={58,58,58,43,43,43},
+	     box={x1=2,y1=1,x2=8,y2=15},
+	     hsfx=3,ctim=0,
+	     hitsign=false,
+	     hitcnt=5}
  	ch_y=2
   
 	--bird
  	bird={x=-28,y=14,spd=0.4,dir=1,
-		  fly=false,
-		  ani={25,26,27},
-		  box={x1=1,y1=1,x2=7,y2=7},
-		  hsfx=6} 
+	      fly=false,ani={25,26,27},
+	      box={x1=1,y1=1,x2=7,y2=7},
+	      hsfx=6} 
  	set_bird(bird)
  
 	--worm
 	worm={x=rnd(wlr),y=119,
-		  spd=0.05,dir=rnd({-1,1}),
-		  mov=false,cf=0,
-		  ani={23,23,24,24}}
+	      spd=0.05,dir=rnd({-1,1}),
+	      mov=false,cf=0,
+	      ani={23,23,24,24}}
  	set_worm(worm)
  
 	--clouds
